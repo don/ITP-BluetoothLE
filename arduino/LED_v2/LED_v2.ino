@@ -45,7 +45,7 @@ void setup() {
   // assign event handlers for characteristic
   switchCharacteristic.setEventHandler(BLEWritten, switchCharacteristicWritten);
   dimmerCharacteristic.setEventHandler(BLEWritten, dimmerCharacteristicWritten);
-  
+
   // begin initialization
   blePeripheral.begin();
 
@@ -53,8 +53,8 @@ void setup() {
 }
 
 void loop() {
-  // poll peripheral
-  blePeripheral.poll();  
+  // Tell the bluetooth radio to do whatever it should be working on	
+  blePeripheral.poll();
 }
 
 void switchCharacteristicWritten(BLECentral& central, BLECharacteristic& characteristic) {

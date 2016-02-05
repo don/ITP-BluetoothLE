@@ -46,14 +46,14 @@ void setup() {
 }
 
 void loop() {
-  // poll peripheral
-  blePeripheral.poll(); 
-  
+  // Tell the bluetooth radio to do whatever it should be working on	
+  blePeripheral.poll();
+
   // limit how often we read the button
   if (millis() - lastReadTime > readInterval) {
     readButton();
     lastReadTime = millis();
-  } 
+  }
 }
 
 void readButton() {
@@ -64,6 +64,5 @@ void readButton() {
     Serial.print("Button ");
     Serial.println(buttonValue, HEX);
     buttonCharacteristic.setValue(buttonValue);
-  } 
+  }
 }
-

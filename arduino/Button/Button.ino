@@ -43,9 +43,9 @@ void setup() {
 }
 
 void loop() {
-  // poll peripheral
-  blePeripheral.poll(); 
- 
+  // Tell the bluetooth radio to do whatever it should be working on	
+  blePeripheral.poll();
+
   char buttonValue = digitalRead(BUTTON_PIN);
 
   // has the value changed since the last read?
@@ -53,6 +53,5 @@ void loop() {
     Serial.print("Button ");
     Serial.println(buttonValue, HEX);
     buttonCharacteristic.setValue(buttonValue);
-  } 
+  }
 }
-
