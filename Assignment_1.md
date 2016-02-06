@@ -1,4 +1,4 @@
-## Assignment 1 - Design and build a Bluetooth Peripheral
+## Assignment 1 - Design and build a Bluetooth LE Peripheral
 
 1) Create the service definition
  * Service - Name & UUID
