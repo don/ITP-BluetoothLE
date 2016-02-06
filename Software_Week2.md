@@ -35,7 +35,7 @@ Verify that PhoneGap installed correctly. Run `phonegap -v` and ensure that it p
 
 ```
 $ phonegap -v
-5.4.0
+5.5.0
 ```
 
 ## Firewall
