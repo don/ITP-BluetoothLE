@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- Content-Security-Policy allow *anything* (added policy to stop warnings) -->
+        <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>BLE Template</title>
+    </head>
+    <body>
+        <div>
+            <h2>BLE Button</h2>
+            <div id="mainPage">
+                <ul id="deviceList">
+                </ul>
+                <button id="refreshButton">Refresh</button>
+            </div>
+            <div id="detailPage">
+                <div id="statusDiv">
+                    Button status is unknown.
+                </div>
+                <button id="disconnectButton">Disconnect</button>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/fastclick.js"></script>
+        <script type="text/javascript" src="js/disconnector.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>

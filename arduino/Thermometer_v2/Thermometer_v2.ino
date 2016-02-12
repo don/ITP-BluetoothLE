@@ -72,7 +72,7 @@ float calculateTemperature()
   int sensorValue = analogRead(TEMPERATURE_PIN);
 
   float voltage = sensorValue * 5.0; // RedBear Blend
-  // float voltage = sensorValue * 3.3; // RedBear Nano & RFduino
+  //float voltage = sensorValue * 3.3; // RedBear Nano & RFduino
   voltage /= 1024.0;
   float temperature = (voltage - 0.5) * 100; // 100 degrees per volt with 0.5 volt offset
 

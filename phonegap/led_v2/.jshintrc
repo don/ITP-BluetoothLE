@@ -1,0 +1,7 @@
+{
+  "browser": true,
+  "devel": true,
+  "undef": true,
+  "unused": false,
+  "predef": [ "ble", "cordova", "FastClick", "mainPage", "detailPage", "deviceList", "refreshButton", "disconnectButton", "onButton", "offButton", "statusDiv", "brightness" ]
+}
