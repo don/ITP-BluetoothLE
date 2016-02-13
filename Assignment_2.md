@@ -1,6 +1,6 @@
 ## Assignment 2 - Build a Bluetooth LE Phone App
 
-Use PhoneGap and the [Cordova BLE Central Plugin](https://github.com/don/cordova-plugin-ble-central) API to create a phone app for the peripheral you build in the [first assignment](Assignment_1.md). The application does not need to be complex. You can use the [examples from class](/phonegap) as a basis for your project.
+Use PhoneGap and the [Cordova BLE Central Plugin](https://github.com/don/cordova-plugin-ble-central) API to create a phone app for the peripheral you built in the [first assignment](Assignment_1.md). The application does not need to be complex. You can use the [examples from class](/phonegap) as a basis for your project.
 
 You must include
 
