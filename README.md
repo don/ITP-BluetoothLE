@@ -5,6 +5,7 @@
 ## Slides
   * [Week 1](http://don.github.io/slides/2016-02-05-itp-bluetoothle/)
   * [Week 2](http://don.github.io/slides/2016-02-12-itp-bluetoothle/)
+  * [Week 3](week3/)
 
 ## Software
   * [Week 1 - Arduino](Software_Week1.md)
