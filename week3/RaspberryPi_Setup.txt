@@ -1,0 +1,24 @@
+Installing Noble and Bleno with Debian Jessie on Raspberry Pi
+
+https://www.raspberrypi.org/downloads/raspbian/
+install
+configure
+apt-get update
+apt-get dist-upgrade
+sudo apt-get install bluetooth bluez libbluetooth-dev libudev-dev
+
+curl -O https://nodejs.org/dist/v4.3.0/node-v4.3.0-linux-armv7l.tar.xz
+tar xf node-v4.3.0-linux-armv7l.tar.xz
+sudo mv node-v4.3.0-linux-armv7l /usr/local/
+sudo ln -s /usr/local/node-v4.3.0-linux-armv7l/bin/node /usr/local/bin/
+sudo ln -s /usr/local/node-v4.3.0-linux-armv7l/bin/npm /usr/local/bin/
+
+hciconfig reported status of DOWN, reboot fixed
+hcitool lescan
+
+Need to disabled and remove bluetoothd https://github.com/sandeepmistry/bleno#linux
+sudo systemctl stop bluetooth (once)
+sudo systemctl disable bluetooth (persist on reboot)
+
+Add Dallas Semiconductor OneWire support on Raspberry Pi for examples 
+https://learn.adafruit.com/adafruits-raspberry-pi-lesson-11-ds18b20-temperature-sensing/ds18b20
