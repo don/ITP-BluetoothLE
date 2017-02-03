@@ -1,16 +1,7 @@
-// Import libraries (BLEPeripheral depends on SPI)
-#include <SPI.h>
-#include <BLEPeripheral.h>
+#include <CurieBLE.h>
 
-// define pins (varies per shield/board)
-// https://github.com/sandeepmistry/arduino-BLEPeripheral#pinouts
-// Blend
-#define BLE_REQ     9
-#define BLE_RDY     8
-#define BLE_RST     5
-
-// create peripheral instance, see pinouts above
-BLEPeripheral blePeripheral = BLEPeripheral(BLE_REQ, BLE_RDY, BLE_RST);
+// create peripheral instance
+BLEPeripheral blePeripheral;
 
 // create service
 BLEService buttonService = BLEService("FFE0");
@@ -19,9 +10,7 @@ BLEService buttonService = BLEService("FFE0");
 BLECharCharacteristic buttonCharacteristic = BLECharCharacteristic("FFE1", BLENotify);
 BLEDescriptor buttonDescriptor = BLEDescriptor("2901", "Button State");
 
-#define BUTTON_PIN 7 // RedBear Blend
-// #define BUTTON_PIN D2 // RedBear Nano
-// #define BUTTON_PIN 5  // RFduino
+#define BUTTON_PIN 7 // TODO consider PIN 5
 
 void setup() {
   Serial.begin(9600);

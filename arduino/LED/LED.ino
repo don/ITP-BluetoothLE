@@ -1,19 +1,9 @@
-#define LED_PIN 6 // RedBear Blend & RFduino
-// #define LED_PIN A3 // RedBear Nano
+#include <CurieBLE.h>
 
-// Import libraries (BLEPeripheral depends on SPI)
-#include <SPI.h>
-#include <BLEPeripheral.h>
+#define LED_PIN 6
 
-// define pins (varies per shield/board)
-// https://github.com/sandeepmistry/arduino-BLEPeripheral#pinouts
-// Blend
-#define BLE_REQ     9
-#define BLE_RDY     8
-#define BLE_RST     5
-
-// create peripheral instance, see pinouts above
-BLEPeripheral blePeripheral = BLEPeripheral(BLE_REQ, BLE_RDY, BLE_RST);
+// create peripheral instance
+BLEPeripheral blePeripheral;
 
 // create service
 BLEService ledService = BLEService("FF10");

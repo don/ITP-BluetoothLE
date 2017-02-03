@@ -1,21 +1,11 @@
-#include <SPI.h>
-#include <BLEPeripheral.h>
+#include <CurieBLE.h>
 
-// define pins (varies per shield/board)
-// https://github.com/sandeepmistry/arduino-BLEPeripheral#pinouts
-// Blend
-#define BLE_REQ 9
-#define BLE_RDY 8
-#define BLE_RST 5
-
-BLEPeripheral blePeripheral = BLEPeripheral(BLE_REQ, BLE_RDY, BLE_RST);
+BLEPeripheral blePeripheral;
 BLEService thermometerService = BLEService("BBB0");
 BLEFloatCharacteristic temperatureCharacteristic = BLEFloatCharacteristic("BBB1", BLERead | BLENotify);
 BLEDescriptor temperatureDescriptor = BLEDescriptor("2901", "degrees C");
 
-#define TEMPERATURE_PIN A0 // RedBear Blend
-// #define TEMPERATURE_PIN A4 // RedBear Nano
-// #define TEMPERATURE_PIN 2  // RFduino
+#define TEMPERATURE_PIN A0
 
 long previousMillis = 0;  // will store last time temperature was updated
 long interval = 2000;     // interval at which to read temperature (milliseconds)
@@ -67,10 +57,10 @@ float calculateTemperature()
   // read the sensor value
   int sensorValue = analogRead(TEMPERATURE_PIN);
 
-  float voltage = sensorValue * 5.0; // RedBear Blend
-  //float voltage = sensorValue * 3.3; // RedBear Nano & RFduino
-  voltage /= 1024.0;
-  float temperature = (voltage - 0.5) * 100; // 100 degrees per volt with 0.5 volt offset
+  // 3.3v logic, 10-bit ADC
+  float voltage = sensorValue * 3.3 / 1024.0;
+  // 100 degrees per volt with 0.5 volt offset  
+  float temperature = (voltage - 0.5) * 100;  
 
   return temperature;
 }

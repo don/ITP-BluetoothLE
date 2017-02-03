@@ -1,5 +1,4 @@
-#define LED_PIN 6 // RedBear Blend & RFduino
-// #define LED_PIN A3 // RedBear Nano
+#define LED_PIN 6
 
 void setup() {
   pinMode(LED_PIN, OUTPUT);
