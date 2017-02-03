@@ -4,17 +4,10 @@
 // Use Light Blue and nRF Master Control Panel to view the differences 
 // between Local Name an Device Name.
 //
-#include <SPI.h>
-#include <BLEPeripheral.h>
+#include <CurieBLE.h>
 
-// define pins (varies per shield/board)
-// https://github.com/sandeepmistry/arduino-BLEPeripheral#pinouts
-#define BLE_REQ     9
-#define BLE_RDY     8
-#define BLE_RST     5
-
-// create peripheral instance, see pinouts above
-BLEPeripheral blePeripheral = BLEPeripheral(BLE_REQ, BLE_RDY, BLE_RST);
+// create peripheral instance
+BLEPeripheral blePeripheral;
 
 // create service
 BLEService service = BLEService("1234");
