@@ -10,7 +10,7 @@ BLEService buttonService = BLEService("FFE0");
 BLECharCharacteristic buttonCharacteristic = BLECharCharacteristic("FFE1", BLENotify);
 BLEDescriptor buttonDescriptor = BLEDescriptor("2901", "Button State");
 
-#define BUTTON_PIN 7 // TODO consider PIN 5
+#define BUTTON_PIN 7
 
 void setup() {
   Serial.begin(9600);

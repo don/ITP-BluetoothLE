@@ -13,7 +13,7 @@ BLEDescriptor buttonDescriptor = BLEDescriptor("2901", "Button State");
 #define BUTTON_PIN 7 
 
 unsigned long lastReadTime = 0;
-int readInterval = 100;
+unsigned char readInterval = 100;
 
 void setup() {
   Serial.begin(9600);

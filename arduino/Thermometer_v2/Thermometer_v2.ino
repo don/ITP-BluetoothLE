@@ -12,8 +12,9 @@ BLEDescriptor temperatureDescriptor = BLEDescriptor("2901", "degrees C");
 #define TEMPERATURE_PIN A4 // RedBear Nano
 //#define TEMPERATURE_PIN 2  // RFduino
 
-long previousMillis = 0;  // will store last time temperature was updated
-long interval = 2000;     // interval at which to read temperature (milliseconds)
+unsigned long previousMillis = 0;  // will store last time temperature was updated
+unsigned short interval = 2000;    // interval at which to read temperature (milliseconds)
+
 void setup()
 {
   Serial.begin(9600);
