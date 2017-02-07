@@ -38,7 +38,7 @@ var app = {
         app.showDetailPage();
 
         var failure = function(reason) {
-            navigator.notification.alert(reason, null, "Temperature Error");
+            navigator.notification.alert(reason, null, 'Temperature Error');
         };
 
         // subscribe to be notified when the temperature changes
@@ -64,7 +64,7 @@ var app = {
         var data = new Float32Array(buffer);
         var celsius = data[0];
         var fahrenheit = (celsius * 1.8 + 32.0).toFixed(1);
-        var message = "Temperature is " + fahrenheit + " &deg;F";
+        var message = 'Temperature is ' + fahrenheit + ' &deg;F';
         statusDiv.innerHTML = message;
     },
     disconnect: function(e) {

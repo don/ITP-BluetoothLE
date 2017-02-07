@@ -38,7 +38,7 @@ var app = {
         app.showDetailPage();
 
         var failure = function(reason) {
-            navigator.notification.alert(reason, null, "Button Error");
+            navigator.notification.alert(reason, null, 'Button Error');
         };
 
         // subscribe to be notified when the button state changes
@@ -58,9 +58,9 @@ var app = {
         console.log(state);
 
         if (state === 0) {
-            statusDiv.innerHTML = 'Button is released.';
+            statusDiv.innerText = 'Button is released.';
         } else {
-            statusDiv.innerHTML = 'Button is pressed.';            
+            statusDiv.innerText = 'Button is pressed.';            
         }
     },
     disconnect: function(e) {
