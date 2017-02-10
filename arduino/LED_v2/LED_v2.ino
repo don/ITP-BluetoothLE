@@ -1,5 +1,4 @@
 #include <CurieBLE.h>
-
 #define LED_PIN 6
 
 // create peripheral instance
@@ -53,11 +52,12 @@ void switchCharacteristicWritten(BLECentral& central, BLECharacteristic& charact
 
   if (switchCharacteristic.value()) {
     Serial.println(F("LED on"));
-    digitalWrite(LED_PIN, HIGH);
+    analogWrite(LED_PIN, 0xFF);
   } else {
     Serial.println(F("LED off"));
-    digitalWrite(LED_PIN, LOW);
+    analogWrite(LED_PIN, 0x00);
   }
+
 }
 
 void dimmerCharacteristicWritten(BLECentral& central, BLECharacteristic& characteristic) {
