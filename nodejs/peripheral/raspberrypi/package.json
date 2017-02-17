@@ -1,0 +1,19 @@
+{
+  "name": "peripheral",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Bluetooth Peripheral examples that use GPIO",
+  "main": "led.js",
+  "dependencies": {
+    "bleno": "",
+    "ds18b20": "",
+    "onoff": "",
+    "util": ""
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Don Coleman",
+  "license": "Apache2"
+}

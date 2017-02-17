@@ -1,0 +1,16 @@
+{
+  "name": "hardware-check",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Simple scripts to check if the hardware is wired correctly",
+  "main": "button.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ds18b20": "0.0.2",
+    "onoff": "^1.0.2"
+  }
+}

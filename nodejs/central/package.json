@@ -1,0 +1,21 @@
+{
+  "name": "central",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Bluetooth LE Examples using noble",
+  "main": "button.js",
+  "dependencies": {
+    "gpio": "",
+    "keypress": "^0.2.1",
+    "noble": "",
+    "onoff": "",
+    "opn": "",
+    "robotjs": ""
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Don Coleman",
+  "license": "Apache2"
+}

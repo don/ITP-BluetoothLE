@@ -1,0 +1,18 @@
+{
+  "name": "peripheral-no-gpio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Bluetooth peripheral demos that can run without GPIO",
+  "main": "led.js",
+  "dependencies": {
+    "bleno": "",
+    "util": "",
+    "keypress": ""
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Don Coleman",
+  "license": "Apache2"
+}
