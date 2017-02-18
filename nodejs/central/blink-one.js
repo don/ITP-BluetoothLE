@@ -9,11 +9,16 @@ noble.on('stateChange', function (state) {
 });
 
 noble.on('discover', function (peripheral) {
-  console.log(peripheral);
-  //if (peripheral.address === '98:4f:ee:0f:a4:b5') { // Arduino 101
-  if (peripheral.address === 'b8:27:eb:7d:38:e0') { // Raspberry Pi
+
+  // blink.js will connect to ALL devices advertising the FF10 LED service.
+  // This file checks the device name and only connects to that named device
+  // Change 'LED' to match the named advertised by your peripheral
+  if (peripheral.advertisement.localName === 'LED') {
+    console.log('Connecting to peripheral { name:' + peripheral.advertisement.localName + ', id:' + peripheral.id + ' }');
     connectAndSetUp(peripheral);
     noble.stopScanning();
+  } else {
+    console.log('Skipping peripheral { name:' + peripheral.advertisement.localName + ', id:' + peripheral.id + ' }');
   }
 });
 
