@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Bluetooth Info</title>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+      <!-- Optional theme -->
+      <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+
+      <!-- Latest compiled and minified JavaScript -->
+      <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
+      <style>
+      body {
+        margin:20px
+      }
+      </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="panel panel-info">
+        <div class="panel-heading">Scan Results</div>
+        <ul id="deviceList" class="list-group">
+        </ul>
+        </div>
+      </div>
+      <div class="col-md-8" id="detailsDiv">      
+      </div>
+    </div>
+
+    <script id="list-item-template" type="text/x-mustache-template">
+    <ul data-device-id="{{id}}" class="list-group-item">
+        Name: {{ checkName advertisement.localName }}  <br/>
+        ID: {{ formatId id }} <br/>
+        RSSI: {{ rssi }}
+    </ul>
+    </script>
+
+    <script id="details-template" type="text/x-mustache-template">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+          <h2 class="panel-title">{{ checkName peripheral.advertisement.localName }}</h2>
+      </div>
+      <div class="panel-body">
+        <p>
+        Device UUID: {{ formatId peripheral.id }}
+        </p>
+        {{#each services}}
+        <div class="panel panel-default"> <!-- service panel -->
+              <div class="panel-heading">Service UUID: {{uuid}}</div>
+              <ul class="list-group">
+              {{#each characteristics}}
+                {{! we'd need to read the 0x2902 descriptor to get the name }}
+                <li class="list-group-item">Characteristic UUID: {{uuid}}<br/> 
+                Properties: {{properties}}
+                </li>
+              {{/each}}
+              </ul>
+        </div>  <!-- service panel -->
+        {{/each}}
+        </div> <!-- primary panel body -->
+        </div> <!-- primary panel -->
+    </script>
+    <script src="index.js"></script>
+    <script src="helpers.js"></script>
+  </body>
+</html>

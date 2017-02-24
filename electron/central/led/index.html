@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Bluetooth LED</title>
+    <style>
+    body {
+      margin: 30px;
+      text-align:center;
+    }
+    button{
+      font-size: 1.25em;
+      padding: 0.5em;
+      width: 4em;
+      margin: 0.25em;
+    } 
+    input {
+      margin-top: 20px;
+    }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button id="onButton" >On</button>
+      <button id="offButton">Off</button>
+    </div>
+    <div>
+      <input type="range" min="0" max="255" value="255" id="brightness" />
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

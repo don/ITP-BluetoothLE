@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="index.css">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1,
+         user-scalable=no, width=device-width">
+         <title>Bluetooth Button</title>
+    </head>
+
+    <body>
+        <div>
+            <button id="startButton">Start</button>
+            <br/>
+        </div>
+
+        <div id="controlsDiv">
+
+            <div id="statusDiv">
+                Button status is unknown.
+            </div>
+
+            <button id="disconnectButton">Disconnect</button>
+        </div>
+
+        <div id="output" class="output">
+            <div id="content"></div>
+            <div id="status"></div>
+            <pre id="log"></pre>
+        </div>
+
+        <script type="text/javascript" src="chromeSamples.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>

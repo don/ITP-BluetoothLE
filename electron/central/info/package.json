@@ -1,0 +1,22 @@
+{
+  "name": "electron-ble-info",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Discover BLE services and characteristics",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "electron-rebuild": "electron-rebuild"
+  },
+  "author": "Don Coleman",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "^1.6.1",
+    "electron-rebuild": "^1.5.7"
+  },
+  "dependencies": {
+    "handlebars": "^4.0.6",
+    "mustache": "^2.3.0",
+    "noble": "^1.3.0"
+  }
+}

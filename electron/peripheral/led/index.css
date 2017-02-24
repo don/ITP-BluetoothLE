@@ -1,0 +1,32 @@
+/* CSS from https://codepen.io/fskirschbaum/pen/MYJNaj */
+.container {
+  padding: 20px;
+}
+
+.led-box {
+  height: 135px;
+  /*width: 135px;*/
+  margin: 20px;
+  /*float: left;*/
+}
+
+.led-box p {
+  font-size: 12px;
+  text-align: center;
+  margin: 1em;
+}
+
+.led-blue {
+  margin: 0 auto;
+  width: 128px;
+  height: 128px;
+  background-color: #24E0FF;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #006 0 -1px 9px, #3F8CFF 0 2px 14px;
+}
+
+body {
+    margin: 20px;
+    font-family: "Helvetica Neue";
+    text-align: center;
+}
