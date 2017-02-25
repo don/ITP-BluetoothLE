@@ -63,15 +63,11 @@ function onStartButtonClick() {
 }
 
 function disconnect() {
-  if (bluetoothDevice && !bluetoothDevice.gatt.connected) {
-    bluetoothDevice.gatt.disconnect().then(_ => { 
-      document.querySelector('#startButton').hidden = false;
-      document.querySelector('#controlsDiv').hidden = true;
-    })
-  } else {
-    document.querySelector('#startButton').hidden = false;
-    document.querySelector('#controlsDiv').hidden = true;
+  if (bluetoothDevice && bluetoothDevice.gatt) {
+    bluetoothDevice.gatt.disconnect();
   }
+  document.querySelector('#startButton').hidden = false;
+  document.querySelector('#controlsDiv').hidden = true;
 }
 
 /* Utils */
