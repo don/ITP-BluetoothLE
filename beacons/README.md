@@ -2,7 +2,7 @@
 
 ## iBeacon
 
-Scan for iBeacons with Node.js [ibeacons/scan.js](ibeacons/scan.js)
+Scan for iBeacons with Node.js [ibeacons/scan.js](ibeacons/scan.js)<br />
 Create iBeacons with Node.js [ibeacons/ibeacon.js](ibeacons/ibeacon.js)
 
 iOS Ranging Demo - [ibeacon-demo](https://github.com/don/ibeacon-demo)
@@ -13,7 +13,7 @@ Create iBeacon with BLE Peripheral - [iBeacon.ino](https://github.com/sandeepmis
 
 ## Eddystone
 
-Scan for Eddystone beacons with Node.js [eddystone/scan.js](eddystone/scan.js)
+Scan for Eddystone beacons with Node.js [eddystone/scan.js](eddystone/scan.js)<br />
 Create Eddystone beacons with Node.js [eddystone/beacon.js](eddystone/beacon.js)
 
 RFduino Eddystone Beacon - directly write advertisement data [AdvertisementRawiBeacon.ino](https://github.com/google/eddystone/blob/master/eddystone-url/implementations/RFduino/eddystone-url.ino)
