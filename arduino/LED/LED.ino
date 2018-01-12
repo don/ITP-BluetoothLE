@@ -1,6 +1,7 @@
-#include <CurieBLE.h>
+#include <BLEPeripheral.h>
 
-#define LED_PIN 6
+const int COL1 = 3;     // Column #1 control
+const int LED_PIN = 26;     // 'row 1' led
 
 // create peripheral instance
 BLEPeripheral blePeripheral;
@@ -13,6 +14,11 @@ BLECharCharacteristic switchCharacteristic = BLECharCharacteristic("FF11", BLERe
 BLEDescriptor switchDescriptor = BLEDescriptor("2901", "Switch");
 
 void setup() {
+
+  // because the LEDs are multiplexed, we must ground the opposite side of the LED
+  pinMode(COL1, OUTPUT);
+  digitalWrite(COL1, LOW); 
+     
   Serial.begin(9600);
 
   // set LED pin to output mode

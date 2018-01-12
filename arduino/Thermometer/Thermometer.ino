@@ -1,4 +1,7 @@
-#include <CurieBLE.h>
+#include <BLEPeripheral.h>
+#include <Adafruit_Microbit.h>
+
+Adafruit_Microbit microbit;
 
 BLEPeripheral blePeripheral;
 BLEService thermometerService = BLEService("BBB0");
@@ -40,9 +43,12 @@ void loop()
   }
 }
 
+// The Adafruit code averages many values to get a better number
+// See https://github.com/adafruit/Adafruit_Microbit/blob/master/examples/ble_dietemp/ble_dietemp.ino
 void pollTemperatureSensor()
 {
-  float temperature = calculateTemperature();
+  // subtract 7 since it's die temp and would rather see approximation of ambient temp
+  float temperature = (float)microbit.getDieTemp() - 7;  // getDieTemp is uint8_t
 
   // only set the characteristic value if the temperature has changed
   if (temperatureCharacteristic.value() != temperature) {
@@ -51,17 +57,3 @@ void pollTemperatureSensor()
   }
 }
 
-// calculate the temperature from the sensor reading
-// https://learn.adafruit.com/tmp36-temperature-sensor/using-a-temp-sensor
-float calculateTemperature()
-{
-  // read the sensor value
-  int sensorValue = analogRead(TEMPERATURE_PIN);
-
-  // 3.3v logic, 10-bit ADC
-  float voltage = sensorValue * 3.3 / 1024.0;
-  // 100 degrees per volt with 0.5 volt offset  
-  float temperature = (voltage - 0.5) * 100;  
-
-  return temperature;
-}
