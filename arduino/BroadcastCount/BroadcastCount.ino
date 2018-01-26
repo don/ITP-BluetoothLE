@@ -2,7 +2,9 @@
 // Simple counter that broadcasts a value
 #include <CurieBLE.h>
 
-uint8_t value = 0;
+uint8_t count = 0;
+unsigned long previousMillis = 0;  // will store last time counter was updated
+unsigned short interval = 1000;    // interval at which to update counter (milliseconds)
 
 BLEPeripheral peripheral;
 BLEService service = BLEService("EEE0");
@@ -17,7 +19,7 @@ void setup() {
   peripheral.addAttribute(service);
   peripheral.addAttribute(characteristic);
   
-  characteristic.setValue(value);
+  characteristic.setValue(count);
   characteristic.broadcast();
 
   peripheral.begin();
@@ -27,7 +29,9 @@ void setup() {
 
 void loop() {
     peripheral.poll();
-    characteristic.setValue(value);    
-    delay(1000);
-    value++;
+    if (millis() - previousMillis > interval) {
+      characteristic.setValue(count);    
+      count++;
+      previousMillis = millis();
+    }
 }
