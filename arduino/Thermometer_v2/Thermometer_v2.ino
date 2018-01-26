@@ -1,16 +1,14 @@
-// Broadcast Temperature in Advertising Data
-// Doesn't work with Arduino 101 yet 
-// See https://github.com/01org/corelibs-arduino101/issues/420
-
-#include <BLEPeripheral.h>
+// Broadcast the temperature Characteristic
+// Note there is a bug on the Arduino 101 that prevents connections when broadcasting https://github.com/arduino/ArduinoCore-arc32/issues/583
+// Use https://github.com/sandeepmistry/arduino-BLEPeripheral if you need broadcast & connection
+#include <CurieBLE.h>
 
 BLEPeripheral blePeripheral;
 BLEService thermometerService = BLEService("BBB0");
 BLEFloatCharacteristic temperatureCharacteristic = BLEFloatCharacteristic("BBB1", BLERead | BLENotify | BLEBroadcast);
 BLEDescriptor temperatureDescriptor = BLEDescriptor("2901", "degrees C");
 
-#define TEMPERATURE_PIN A4 // RedBear Nano
-//#define TEMPERATURE_PIN 2  // RFduino
+#define TEMPERATURE_PIN A0
 
 unsigned long previousMillis = 0;  // will store last time temperature was updated
 unsigned short interval = 2000;    // interval at which to read temperature (milliseconds)
@@ -19,7 +17,7 @@ void setup()
 {
   Serial.begin(9600);
   Serial.println(F("Bluetooth Low Energy Thermometer"));
-  
+
   // set advertised name and service
   blePeripheral.setLocalName("Thermometer");
   blePeripheral.setDeviceName("Thermometer");
@@ -29,17 +27,16 @@ void setup()
   blePeripheral.addAttribute(thermometerService);
   blePeripheral.addAttribute(temperatureCharacteristic);
   blePeripheral.addAttribute(temperatureDescriptor);
-  
-  blePeripheral.begin();
 
   temperatureCharacteristic.broadcast();
+  blePeripheral.begin();
 }
 
 void loop()
 {
   // Tell the bluetooth radio to do whatever it should be working on
   blePeripheral.poll();
-  
+
   // limit how often we read the sensor
   if(millis() - previousMillis > interval) {
     pollTemperatureSensor();
