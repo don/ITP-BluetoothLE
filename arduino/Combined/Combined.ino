@@ -55,12 +55,8 @@ void setup() {
   blePeripheral.setDeviceName("Combined");
 
   // We can only advertise one service due to an API limitation
-  //blePeripheral.setAdvertisedServiceUuid("7210");
-  blePeripheral.setAdvertisedServiceUuid("B6FD7210-32D4-4427-ACA7-99DF89E10380");
-  //blePeripheral.setAdvertisedServiceUuid(ledService.uuid());
-  //blePeripheral.setAdvertisedServiceUuid(buttonService.uuid());
-  //blePeripheral.setAdvertisedServiceUuid(thermometerService.uuid());
-  
+  blePeripheral.setAdvertisedServiceUuid("721B");
+
   // LED Service
   blePeripheral.addAttribute(ledService);
   blePeripheral.addAttribute(switchCharacteristic);
