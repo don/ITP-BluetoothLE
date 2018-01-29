@@ -30,6 +30,7 @@ void setup() {
 void loop() {
     peripheral.poll();
     if (millis() - previousMillis > interval) {
+       Serial.println(count);
       characteristic.setValue(count);    
       count++;
       previousMillis = millis();
