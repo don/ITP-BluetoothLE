@@ -1,0 +1,20 @@
+{
+    "name": "itp-bluetooth-template",
+    "version": "1.0.0",
+    "description": "Cordova template for the ITP Bluetooth LE Class at NYU",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/don/ITP-BluetoothLE.git"
+    },
+    "homepage": "https://github.com/don/ITP-BluetoothLE",
+    "keywords": [
+      "ecosystem:cordova",
+      "cordova:template"
+    ],
+    "author": "Don Coleman",
+    "license": "Apache-2.0"
+  }
