@@ -11,7 +11,6 @@ var app = {
         disconnectButton.addEventListener('click', this.disconnect, false);
     },
     onDeviceReady: function() {
-        FastClick.attach(document.body); // https://github.com/ftlabs/fastclick
         app.refreshDeviceList();
     },
     refreshDeviceList: function() {
@@ -32,7 +31,7 @@ var app = {
     },
     onConnect: function(peripheral) {
         var pre = document.querySelector('pre');
-        pre.innerHTML = JSON.stringify(peripheral, null, 2);
+        pre.innerText = JSON.stringify(peripheral, null, 2);
         app.peripheral = peripheral;
         app.showDetailPage();
     },
@@ -57,6 +56,9 @@ var app = {
         }
     },
     onError: function(reason) {
+        if (typeof reason === 'object') {
+            reason = JSON.stringify(reason);
+        }
         navigator.notification.alert(reason, app.showMainPage, 'Error');
     }
 };

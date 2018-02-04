@@ -1,16 +1,16 @@
-/*
-Disconnect any periperal before the app reloads.
-
-If the app reloads when it's connected to a peripheral, PhoneGap Developer App
-still has a Bluetooth connection to the device. This means the peripheral won't
-advertise, can't be discovered, and is orphaned until the app restarts.
-
-This is a PhoneGap Developer App specific issue, but is similar to https://github.com/don/cordova-plugin-ble-central/issues/126.
-
-These solutions are a bit of a kludge since I'm relying on the app.disconnect()
-function for it to work. They also use the undocumented window.phonegap.app
-property to guess if the code is running PhoneGap Developer App.
-*/
+/**
+ * Disconnect any periperal before the app reloads.
+ * 
+ * If the app reloads when it's connected to a peripheral, PhoneGap Developer App
+ * still has a Bluetooth connection to the device. This means the peripheral won't
+ * advertise, can't be discovered, and is orphaned until the app restarts.
+ * 
+ * This is a PhoneGap Developer App specific issue, but is similar to https://github.com/don/cordova-plugin-ble-central/issues/126.
+ * 
+ * These solutions are a bit of a kludge since I'm relying on the app.disconnect()
+ * function for it to work. They also use the undocumented window.phonegap.app
+ * property to guess if the code is running PhoneGap Developer App.
+ */
 
 /* global app */
 

@@ -1,7 +1,7 @@
 {
     "name": "itp-bluetooth-template",
-    "version": "1.0.0",
-    "description": "Cordova template for the ITP Bluetooth LE Class at NYU",
+    "version": "1.1.0",
+    "description": "Cordova template for the ITP Bluetooth LE class at NYU",
     "main": "index.js",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"

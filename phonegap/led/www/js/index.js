@@ -16,7 +16,6 @@ var app = {
         disconnectButton.addEventListener('click', this.disconnect, false);
     },
     onDeviceReady: function() {
-        FastClick.attach(document.body); // https://github.com/ftlabs/fastclick
         app.refreshDeviceList();
     },
     refreshDeviceList: function() {
@@ -84,6 +83,9 @@ var app = {
         }
     },
     onError: function(reason) {
+        if (typeof reason === 'object') {
+            reason = JSON.stringify(reason);
+        }
         navigator.notification.alert(reason, app.showMainPage, 'Error');
     }
 };

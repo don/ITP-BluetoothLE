@@ -12,7 +12,6 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'refreshDeviceList'
     // function, we must explicitly call 'app.refreshDeviceList(...);'
     onDeviceReady: function() {
-        FastClick.attach(document.body); // https://github.com/ftlabs/fastclick
         navigator.notification.alert("Device Ready!");
     }
 };
