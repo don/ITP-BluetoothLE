@@ -85,8 +85,8 @@ var app = {
 
         if (cordova.platformId === 'ios') {
             serviceData = device.advertising.kCBAdvDataServiceData;
-            if (serviceData && serviceData.BBB0) {
-                celsius = new Float32Array(serviceData.BBB0)[0];
+            if (serviceData && serviceData.BBB1) {
+                celsius = new Float32Array(serviceData.BBB1)[0];
             }
         } else { // android
             var SERVICE_DATA_KEY = '0x16';
