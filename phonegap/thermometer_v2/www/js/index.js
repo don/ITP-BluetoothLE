@@ -56,7 +56,7 @@ var app = {
     },
     refreshDeviceList: function() {
         deviceList.innerHTML = ''; // empty the list
-        ble.scan([THERMOMETER_SERVICE], 10, app.onDiscoverDevice, app.onError);
+        ble.scan([THERMOMETER_SERVICE, '721b'], 10, app.onDiscoverDevice, app.onError);
         refreshButton.hidden = true;
         scanStatusDiv.innerHTML = 'Scanning...';
         setTimeout(function() {
@@ -85,8 +85,11 @@ var app = {
 
         if (cordova.platformId === 'ios') {
             serviceData = device.advertising.kCBAdvDataServiceData;
-            if (serviceData && serviceData.BBB1) {
-                celsius = new Float32Array(serviceData.BBB1)[0];
+            console.log(JSON.stringify(serviceData, null, 2));
+            if (serviceData && serviceData.BBB0) { // BLEPeripheral
+                celsius = new Float32Array(serviceData.BBB0)[0];
+            } else if (serviceData && serviceData.BBB1) { // CurieBLE
+                celsius = new Float32Array(ServiceData.BBB1)[0];
             }
         } else { // android
             var SERVICE_DATA_KEY = '0x16';
