@@ -6,4 +6,4 @@ The micro:bit is programmed using the [Espruino IDE Chrome extension](https://ch
 
 Espruino provides some [micro:bit specific documentation](https://www.espruino.com/MicroBit).
 
-Note that [Make Code](https://makecode.microbit.org/) allows allows the micro:bit to be programmed using JavaScipt. The [Bluetooth API](https://makecode.microbit.org/reference/bluetooth) work well for the pre-programmed services, but they do not have functions to create your own Bluetooth services.
+Note that [MakeCode](https://makecode.microbit.org/) allows allows the micro:bit to be programmed using JavaScipt. The [MakeCode APIs](https://makecode.microbit.org/reference/bluetooth) work well for the pre-programmed services, but they do not have functions to create custom Bluetooth services.
