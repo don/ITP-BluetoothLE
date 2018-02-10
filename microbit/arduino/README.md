@@ -1,14 +1,22 @@
-Bluetooth LE examples on BBC micro:bit using Sandeep Mistry's [nRF5 library](https://github.com/sandeepmistry/arduino-nRF5) and [BLEPeripheral](https://github.com/sandeepmistry/arduino-BLEPeripheral).
+# Arduino Bluetooth LE examples on BBC micro:bit 
 
-Install the board definition https://github.com/sandeepmistry/arduino-nRF5#installing. Be sure to set up your machine so you can update the softdevice on the micro:bit. https://github.com/sandeepmistry/arduino-nRF5#flashing-a-softdevice
+These examples use Sandeep Mistry's [nRF5 Arduino core](https://github.com/sandeepmistry/arduino-nRF5) and [BLEPeripheral library](https://github.com/sandeepmistry/arduino-BLEPeripheral).
 
-You only need to update the Nordic SoftDevice once
- * Choose S110 SoftDevice
- * Choose CMSIS-DAP programmer
- * Choose nRF5 Flash SoftDevice
+The nRF5 Arduino core is installed through the Arduino board manager and allows code to be compiled for nRF5x hardware, including the BBC micro:bit. Follow the [installation instructions](https://github.com/sandeepmistry/arduino-nRF5#installing) to setup your machine. 
 
-Once the soft device is flashed, the Arduino IDE can compile and load sketches onto the micro:bit.
+You also need to install the Nordic SoftDevice on the micro:bit. Follow Sandeep's instructions to add the Arduino IDE plugin for [flashing a SoftDevice](https://github.com/sandeepmistry/arduino-nRF5#flashing-a-softdevice).
 
-Additional Libraries
+Select the following from the Tools menu
+ * Board:"BBC micro:bit"
+ * Softdevice: "S110"
+ * Programmer: CMSIS-DAP
+
+Then choose "nRF5 Flash SoftDevice". Once the soft device is flashed, the Arduino IDE can compile and load sketches onto the micro:bit. 
+You only need to flash the soft device one time, not before every Arduino sketch. If you run Espruino, MicroPython, or https://makecode.microbit.org/ programs on your board, you'll need to flash the soft device again.
+
+Adafruit has a more detailed [tutorial](https://learn.adafruit.com/use-micro-bit-with-arduino/overview) including alternate ways to get the SoftDevice onto the micro:bit.
+
+Required Arduino Libraries
+ * BLE Peripheral - https://github.com/sandeepmistry/arduino-BLEPeripheral
  * Adafruit microbit - https://github.com/adafruit/Adafruit_Microbit
- * BLEPeripheral - https://github.com/sandeepmistry/arduino-BLEPeripheral
+ 
