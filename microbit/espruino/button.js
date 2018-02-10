@@ -1,5 +1,8 @@
-// Port Arduino BLE button demo to Espurino running on the BBC Micro:bit
-// https://github.com/don/ITP-BluetoothLE/blob/master/arduino/Button_v2/Button_v2.ino
+// Espurino Bluetooth Button Demo for BBC Micro:bit or Puck.js
+// Texas Instruments Simple Key Service 
+// http://bit.ly/sensortag-button
+
+// NOTE: use firmware >= 1v95.176 with this sketch
 
 NRF.setServices({
   0xFFE0 : {
@@ -12,6 +15,7 @@ NRF.setServices({
 }, { advertise: [ 'FFE0' ] });
 
 function notify(value) {
+  console.log('Button state', value);
   NRF.updateServices({
     0xFFE0 : {
       0xFFE1 : {
@@ -22,14 +26,7 @@ function notify(value) {
   });
 }
 
+setWatch(function(e) {
+  notify(e.state);
+}, BTN, {repeat:true, debounce:20, edge:"both"});
 
-// NOTE on the BBC Micro:bit button is the opposite of Puck.js
-setWatch(function() {
-  console.log("Pressed");
-  notify(1);
-}, BTN, {edge:"falling", debounce:50, repeat:true});
-
-setWatch(function() {
-  console.log("Released");
-  notify(0);
-}, BTN, {edge:"rising", debounce:50, repeat:true});
