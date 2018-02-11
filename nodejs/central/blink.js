@@ -1,16 +1,24 @@
 var noble = require('noble');
 
-noble.on('stateChange', function (state) {
+noble.on('stateChange', state => {
   if (state === 'poweredOn') {
-    noble.startScanning(['ff10']);
+    console.log('Bluetooth is on. Starting Scan.');
+    noble.startScanning(['ff10', '721b']);
   } else {
     noble.stopScanning();
+    console.log('Bluetooth is off. Stopped Scan.');
   }
 });
 
-noble.on('discover', function (peripheral) {
-  console.log(peripheral);
-  connectAndSetUp(peripheral);
+noble.on('discover', peripheral => {
+  const name = peripheral.advertisement.localName;
+  if (name === 'LED') { // change to match name of your device
+    console.log(`Connecting to '${name}' ${peripheral.id}`);
+    connectAndSetUp(peripheral);
+    noble.stopScanning();
+  } else {
+    console.log(`Skipping '${name}' ${peripheral.id}`);
+  }
 });
 
 function connectAndSetUp(peripheral) {
@@ -20,15 +28,14 @@ function connectAndSetUp(peripheral) {
     var serviceUUIDs = ['ff10'];
     var characteristicUUIDs = ['ff11']; // switchCharacteristic
 
-    peripheral.discoverSomeServicesAndCharacteristics(serviceUUIDs, characteristicUUIDs, onServicesAndCharacteristicsDiscovered);
+    peripheral.discoverSomeServicesAndCharacteristics(
+        serviceUUIDs,
+        characteristicUUIDs,
+        onServicesAndCharacteristicsDiscovered
+    );
   });
 
-  // attach disconnect handler
-  peripheral.on('disconnect', onDisconnect);
-}
-
-function onDisconnect() {
-  console.log('Peripheral disconnected!');
+  peripheral.on('disconnect', () => console.log('disconnected'));
 }
 
 function onServicesAndCharacteristicsDiscovered(error, services, characteristics) {
@@ -54,14 +61,13 @@ function onServicesAndCharacteristicsDiscovered(error, services, characteristics
 
   function on() {
     sendData(0x01);
-    setTimeout(off, 5000);
+    setTimeout(off, 1000);
   }
 
   function off() {
     sendData(0x00);
-    setTimeout(on, 5000);
+    setTimeout(on, 1000);
   }
 
   on();
 }
-

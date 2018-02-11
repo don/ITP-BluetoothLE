@@ -1,38 +1,47 @@
-// Attach to a button peripheral 0xFFE0 and 
-// subscribe for button status notifications
-// Open a URL when a button is pressed
-var noble = require('noble');
-var opn = require('opn');
+// Attach to a button peripheral 0xFFE0 and subscribe for button status notifications
+const noble = require('noble');
+const opn = require('opn');
 
-noble.on('stateChange', function (state) {
+const BUTTON_SERVICE_UUID = 'ffe0';
+const BUTTON_STATUS_CHARACTERISTIC_UUID = 'ffe1';
+const COMBINED_UUID = '721b';
+const SENSOR_TAG_UUID = 'aa80';
+
+noble.on('stateChange', state => {
   if (state === 'poweredOn') {
-    noble.startScanning(['ffe0']);
+    console.log('Bluetooth is on. Starting Scan.');
+    noble.startScanning([BUTTON_SERVICE_UUID, COMBINED_UUID, SENSOR_TAG_UUID]);
   } else {
     noble.stopScanning();
+    console.log('Bluetooth is off. Stopped Scan.');
   }
 });
 
-noble.on('discover', function (peripheral) {
-  console.log(peripheral);
-  connectAndSetUp(peripheral);
+noble.on('discover', peripheral => {
+  const name = peripheral.advertisement.localName;
+  if (name === 'CC2650 SensorTag') { // change to match name of your device
+    console.log(`Connecting to '${name}' ${peripheral.id}`);
+    connectAndSetUp(peripheral);
+    noble.stopScanning();
+  } else {
+    console.log(`Skipping '${name}' ${peripheral.id}`);
+  }
 });
 
 function connectAndSetUp(peripheral) {
 
   peripheral.connect(function (error) {
-
-    var serviceUUIDs = ['ffe0'];
-    var characteristicUUIDs = ['ffe1']; // buttonStatus characteristic
-
-    peripheral.discoverSomeServicesAndCharacteristics(serviceUUIDs, characteristicUUIDs, onServicesAndCharacteristicsDiscovered);
+    console.log('Discovering services & characteristics');
+    const serviceUUIDs = [BUTTON_SERVICE_UUID];
+    const characteristicUUIDs = [BUTTON_STATUS_CHARACTERISTIC_UUID];
+    peripheral.discoverSomeServicesAndCharacteristics(
+        serviceUUIDs,
+        characteristicUUIDs,
+        onServicesAndCharacteristicsDiscovered
+    );
   });
 
-  // attach disconnect handler
-  peripheral.on('disconnect', onDisconnect);
-}
-
-function onDisconnect() {
-  console.log('Peripheral disconnected!');
+  peripheral.on('disconnect', () => console.log('disconnected'));
 }
 
 function onServicesAndCharacteristicsDiscovered(error, services, characteristics) {
@@ -42,26 +51,20 @@ function onServicesAndCharacteristicsDiscovered(error, services, characteristics
     return;
   }
 
-  var buttonStatusCharacteristic = characteristics[0];
+  const buttonStatusCharacteristic = characteristics[0];
 
-  buttonStatusCharacteristic.on('data', function (data, isNotification) {
-    console.log('Received notification!'); // read and notify work the same
-    if (data.length === 1) {
-      var result = data.readUInt8(0);
-      if (result === 1) {
-        opn('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
-      }
-    } else {
-      console.log('result length incorrect');
+  buttonStatusCharacteristic.on('data', (data, isNotification) => {
+    // if the first byte of data is non-zero
+    if (data.length > 0 && data.readUInt8(0)) {
+      opn('https://nodejs.org');
     }
   });
-  buttonStatusCharacteristic.subscribe(function (err) {
+
+  buttonStatusCharacteristic.subscribe((err) => {
     if (err) {
       console.log('Error subscribing to button notifications', err);
     } else {
       console.log('Subscribed for button notifications');
     }
   });
-
 }
-

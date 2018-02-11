@@ -1,7 +1,3 @@
-// Connect to a Bluetooth LE peripheral and list services and characteristics
-// Use scan.js to get the UUID or MAC address
-// Pass the UUID or Mac address to this script
-// Copied from https://github.com/sandeepmistry/noble/blob/master/examples/peripheral-explorer.js
 var async = require('async');
 var noble = require('noble');
 
@@ -41,7 +37,7 @@ noble.on('discover', function(peripheral) {
     }
 
     if (serviceData) {
-      console.log('  Service Data      = ' + serviceData);
+      console.log('  Service Data      = ' + JSON.stringify(serviceData, null, 2));
     }
 
     if (serviceUuids) {

@@ -1,6 +1,5 @@
 // Attach to a button peripheral 0xFFE0 and subscribe for button status notifications
 const noble = require('noble');
-const robot = require('robotjs');
 
 const BUTTON_SERVICE_UUID = 'ffe0';
 const BUTTON_STATUS_CHARACTERISTIC_UUID = 'ffe1';
@@ -42,6 +41,7 @@ function connectAndSetUp(peripheral) {
   });
 
   peripheral.on('disconnect', () => console.log('disconnected'));
+
 }
 
 function onServicesAndCharacteristicsDiscovered(error, services, characteristics) {
@@ -54,11 +54,29 @@ function onServicesAndCharacteristicsDiscovered(error, services, characteristics
   const buttonStatusCharacteristic = characteristics[0];
 
   buttonStatusCharacteristic.on('data', (data, isNotification) => {
-    // if the first byte of data is non-zero
-    if (data.length > 0 && data.readUInt8(0)) {
-            console.log('Robotjs is pressing the right arrow key');
-            robot.keyTap('right');           // send the arrow key
-  } });
+    const state = data.readUInt8(0);
+
+    // bitmask
+    var LEFT_BUTTON = 1;  // 0001
+    var RIGHT_BUTTON = 2; // 0010
+    var REED_SWITCH = 4;  // 0100
+
+    if (state === 0) {
+        console.log('No buttons are pressed.');
+    }
+
+    if (state & LEFT_BUTTON) {
+        console.log('Left button is pressed.');
+    }
+
+    if (state & RIGHT_BUTTON) {
+        console.log('Right button is pressed.');
+    }
+
+    if (state & REED_SWITCH) {
+        console.log('Reed switch is activated.');
+    }
+  });
 
   buttonStatusCharacteristic.subscribe((err) => {
     if (err) {
@@ -67,4 +85,5 @@ function onServicesAndCharacteristicsDiscovered(error, services, characteristics
       console.log('Subscribed for button notifications');
     }
   });
+
 }
