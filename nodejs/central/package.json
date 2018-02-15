@@ -6,10 +6,12 @@
   "main": "button-listener.js",
   "dependencies": {
     "async": "~0.2.10",
+    "inquirer": "^5.1.0",
     "keypress": "~0.2.1",
     "noble": "~1.9.0",
     "opn": "~5.2.0",
-    "robotjs": "~0.4.7"
+    "robotjs": "~0.4.7",
+    "term-list": "^0.2.1"
   },
   "devDependencies": {},
   "scripts": {
