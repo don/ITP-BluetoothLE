@@ -31,7 +31,6 @@ BLEDescriptor buttonDescriptor = BLEDescriptor("2901", "Button State");
 
 // Thermometer service
 BLEService thermometerService = BLEService("BBB0");
-
 BLEFloatCharacteristic temperatureCharacteristic = BLEFloatCharacteristic("BBB1", BLERead | BLENotify | BLEBroadcast);
 BLEDescriptor temperatureDescriptor = BLEDescriptor("2901", "degrees C");
 
@@ -41,8 +40,9 @@ void setup() {
   pinMode(BUTTON2_PIN, INPUT);
  
   // set advertised name
-  blePeripheral.setLocalName("Combined");
-  blePeripheral.setDeviceName("Combined");
+  char *name = "Combined";
+  blePeripheral.setLocalName(name);
+  blePeripheral.setDeviceName(name);
 
   // We can only advertise one service due to an API limitation
   blePeripheral.setAdvertisedServiceUuid("721b");
