@@ -1,25 +1,25 @@
-var bleno = require('bleno');
-var util = require('util');
+const bleno = require('bleno');
+const util = require('util');
 
-var ledService = require('./led-service');
-var buttonService = require('./button-service');
-var thermometerService = require('./thermometer-service');
+const lightService = require('./light-service');
+const buttonService = require('./button-service');
+const thermometerService = require('./thermometer-service');
 
-bleno.on('stateChange', function (state) {
+bleno.on('stateChange', state => {
   console.log('on -> stateChange: ' + state);
 
   if (state === 'poweredOn') {
-    bleno.startAdvertising('Combined', [ledService.uuid, buttonService.uuid, thermometerService.uuid]);
+    bleno.startAdvertising('Combined', [lightService.uuid, buttonService.uuid, thermometerService.uuid]);
   } else {
     bleno.stopAdvertising();
   }
 });
 
-bleno.on('advertisingStart', function (error) {
+bleno.on('advertisingStart', error => {
   console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
 
   if (!error) {
-    bleno.setServices([ledService, buttonService, thermometerService]);
+    bleno.setServices([lightService, buttonService, thermometerService]);
   }
 });
 

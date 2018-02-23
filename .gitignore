@@ -2,3 +2,6 @@ platforms
 plugins
 .DS_Store
 node_modules
+*~
+\#*\#
+.\#*

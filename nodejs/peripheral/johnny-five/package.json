@@ -1,0 +1,12 @@
+{
+  "name": "johnny-five-ble-examples",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BLE peripheral examples for the Raspberry Pi using Johnny Five",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Don Coleman",
+  "license": "ISC"
+}
