@@ -6,6 +6,15 @@ const BUTTON_STATUS_CHARACTERISTIC_UUID = 'ffe1';
 const COMBINED_UUID = '721b';
 const SENSOR_TAG_UUID = 'aa80';
 
+// get the device name from command line
+const deviceName = process.argv[2];
+
+if (!deviceName) {
+  console.warn('WARNING: No device name specified. Will not connect.');
+} else {
+  console.log(`Looking for a device named ${deviceName}`);
+}
+
 noble.on('stateChange', state => {
   if (state === 'poweredOn') {
     console.log('Bluetooth is on. Starting Scan.');
@@ -18,7 +27,7 @@ noble.on('stateChange', state => {
 
 noble.on('discover', peripheral => {
   const name = peripheral.advertisement.localName;
-  if (name === 'CC2650 SensorTag') { // change to match name of your device
+  if (name === deviceName) { 
     console.log(`Connecting to '${name}' ${peripheral.id}`);
     connectAndSetUp(peripheral);
     noble.stopScanning();

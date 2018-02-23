@@ -39,27 +39,11 @@ const lightService = new bleno.PrimaryService({
   ]
 });
 
-bleno.on('stateChange', state => {
-  console.log('on -> stateChange: ' + state);
-
-  if (state === 'poweredOn') {
-    bleno.startAdvertising('Light', [lightService.uuid]);
-  } else {
-    bleno.stopAdvertising();
-  }
-});
-
-bleno.on('advertisingStart', error => {
-  console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
-
-  if (!error) {
-    bleno.setServices([lightService]);
-  }
-});
-
 // cleanup GPIO on exit
 function exit() {
   led.unexport();
   process.exit();
 }
 process.on('SIGINT', exit);
+
+module.exports = lightService;
