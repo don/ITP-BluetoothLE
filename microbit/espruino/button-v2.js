@@ -7,7 +7,8 @@
 // 0x02 - button B pressed      010
 // 0x03 - both buttons pressed  011
 //
-// NOTE: use firmware >= 1v95.176 with this sketch
+
+NRF.setAdvertising({},{name:'Button v2'});
 
 NRF.setServices({
   0xFFE0 : {

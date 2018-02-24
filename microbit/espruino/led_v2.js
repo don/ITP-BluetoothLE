@@ -1,6 +1,8 @@
 // Port Arduino BLE LED demo to Espurino running on the BBC Micro:bit
 // https://github.com/don/ITP-BluetoothLE/blob/master/arduino/LED_v2/LED_v2.ino
 
+NRF.setAdvertising({},{name:'LED v2'});
+
 function setSwitch(evt) {
   if (evt.data[0]) {
     // any non-zero value light all LEDs

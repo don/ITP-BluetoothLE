@@ -1,6 +1,8 @@
 // Port Arduino BLE LED demo to Espurino running on the BBC Micro:bit
 // https://github.com/don/ITP-BluetoothLE/blob/master/arduino/LED/LED.ino
 
+NRF.setAdvertising({},{name:'LED'});
+
 NRF.setServices({
   0xFF10 : {
     0xFF11 : {

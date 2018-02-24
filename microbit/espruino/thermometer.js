@@ -4,6 +4,8 @@
 let lastTemperature = 0;
 const data = new Float32Array(1);
 
+NRF.setAdvertising({},{name:'Thermometer'});
+
 NRF.setServices({
     0xBBB0 : {
       0xBBB1 : {

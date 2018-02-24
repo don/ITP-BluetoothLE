@@ -2,7 +2,7 @@
 // Texas Instruments Simple Key Service 
 // http://bit.ly/sensortag-button
 
-// NOTE: use firmware >= 1v95.176 with this sketch
+NRF.setAdvertising({},{name:'Button'});
 
 NRF.setServices({
   0xFFE0 : {
