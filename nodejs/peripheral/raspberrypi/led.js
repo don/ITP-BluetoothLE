@@ -50,7 +50,8 @@ bleno.on('stateChange', state => {
 });
 
 bleno.on('advertisingStart', error => {
-  console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
+  console.log('on -> advertisingStart: ' + 
+      (error ? 'error ' + error : 'success'));
 
   if (!error) {
     bleno.setServices([lightService]);
