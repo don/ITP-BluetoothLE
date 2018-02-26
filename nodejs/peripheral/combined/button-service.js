@@ -27,6 +27,12 @@ class ButtonCharacteristic extends bleno.Characteristic {
       updateValueCallback(data);
     });
   }
+
+  onUnsubscribe() {
+    console.log('ButtonCharacteristic unsubscribe');
+    button.unwatchAll();
+  }
+
 }
 
 const buttonService = new bleno.PrimaryService({

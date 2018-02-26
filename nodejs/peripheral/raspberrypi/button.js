@@ -28,7 +28,7 @@ class ButtonCharacteristic extends bleno.Characteristic {
     });
   }
 
-  onUnubscribe() {
+  onUnsubscribe() {
     console.log('ButtonCharacteristic unsubscribe');
     button.unwatchAll();
   }
