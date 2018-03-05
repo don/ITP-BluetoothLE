@@ -1,8 +1,10 @@
 var noble = require('noble');
+var deviceName = 'microbit'; // TODO change to match your device name
 
 noble.on('stateChange', function(state) {
     if (state === 'poweredOn') {
-        noble.startScanning(['ff10']);
+        noble.startScanning(['ff10', '721b']);
+        statusDiv.innerHTML += ' Scanning...';
     } else {
         noble.stopScanning();
         alert('Please enable Bluetooth');
@@ -10,25 +12,19 @@ noble.on('stateChange', function(state) {
 });
 
 noble.on('discover', function(peripheral) {
-
-    console.log(peripheral);
-    new Notification('Bluetooth LED', {body: 'connecting to ' + peripheral.advertisement.localName });
-    connectAndSetUp(peripheral);
-
-    // Use this version in class to limit which devices you connect to
-    // if (peripheral.advertisement.localName === 'LED') {
-    //     console.log(peripheral);
-    //     new Notification('Bluetooth LED', {body: 'connecting to ' + peripheral.advertisement.localName, silent: true });
-    //     connectAndSetUp(peripheral);
-    //     noble.stopScanning();
-    // } else {
-    //     console.log('Skipping ' + peripheral.advertisement.localName);
-    // }
+    console.log('Discovered', peripheral.advertisement.localName);
+    if (peripheral.advertisement.localName === deviceName) {
+        noble.stopScanning();
+        connectAndSetUp(peripheral);
+    }
 });
 
 function connectAndSetUp(peripheral) {
+    console.log('Connecting to', peripheral.advertisement.localName);
 
     peripheral.connect(function(error) {
+        console.log('Connecting to', peripheral.advertisement.localName);
+        statusDiv.innerHTML = `Connected to '${peripheral.advertisement.localName}'.`
 
         var serviceUUIDs = ['ff10'];
         var characteristicUUIDs = ['ff11', 'ff12']; // switch, dimmer
@@ -44,8 +40,8 @@ function connectAndSetUp(peripheral) {
 }
 
 function onDisconnect() {
-    alert('Peripheral disconnected.');
     console.log('Peripheral disconnected!');
+    statusDiv.innerHTML = 'Disconnected.'
 }
 
 function onServicesAndCharacteristicsDiscovered(error, services, characteristics) {
@@ -56,7 +52,6 @@ function onServicesAndCharacteristicsDiscovered(error, services, characteristics
     }
 
     var switchCharacteristic = characteristics[0];
-    // TODO handle peripherals without ff12
     var dimmerCharacteristic = characteristics[1];
 
     function sendData(byte) {

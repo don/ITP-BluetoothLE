@@ -11,8 +11,10 @@ noble.on('stateChange', function(state) {
 
 noble.on('discover', function(peripheral) {
     console.log(peripheral);
-    var listItem = document.createElement('li');
+
+    //if (!peripheral.advertisement.localName) { return; }
     
+    var listItem = document.createElement('li');
     listItem.innerHTML = 'Name: ' + peripheral.advertisement.localName + '<br/>' +
             'ID: ' + formatId(peripheral.id) + '<br/>' +
             'RSSI: ' + peripheral.rssi;

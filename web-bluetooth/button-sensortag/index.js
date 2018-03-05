@@ -8,62 +8,47 @@ document.querySelector('#startButton').addEventListener('click', function(event)
     }
 });
 
-var bluetoothDevice;
-var buttonStatusCharacteristic;
-var log = ChromeSamples.log;
+let bluetoothDevice;
+let buttonStatusCharacteristic;
+const log = ChromeSamples.log;
 
 document.querySelector('#controlsDiv').hidden = true;
 document.querySelector('#disconnectButton').addEventListener('click', disconnect);
 
-function onStartButtonClick() {
-  let sensorTagUuid = BluetoothUUID.getService(0xAA80);
-  let serviceUuid = BluetoothUUID.getService(0xFFE0);
+async function onStartButtonClick() {
+  let buttonServiceUuid = BluetoothUUID.getService(0xFFE0);
   let buttonStatusCharacteristicUuid = BluetoothUUID.getCharacteristic(0xFFE1);
+  let combinedUuid = BluetoothUUID.getService(0x721b);
+  let sensorTagUuid = BluetoothUUID.getService(0xAA80);
   
-  log('Requesting Bluetooth Device...');
-  navigator.bluetooth.requestDevice(
-    {
-      filters: [{services: [sensorTagUuid]}],
-      optionalServices: [serviceUuid]
-    }
-  ).then(device => {
-    bluetoothDevice = device; // save a copy
+  try {
+    log('Requesting Bluetooth Device...');
+    bluetoothDevice = await navigator.bluetooth.requestDevice(
+      {
+        filters: [{services: [sensorTagUuid]}],
+        filters: [{services: [combinedUuid]}],
+        optionalServices: [buttonServiceUuid]
+      }
+    );
+
     document.querySelector('#startButton').hidden = true;
     document.querySelector('#controlsDiv').hidden = false;
+
     log('Connecting to GATT Server...');
-    return device.gatt.connect();
-  })
-  .then(server => {
+    const server = await bluetoothDevice.gatt.connect();
+
     log('Getting Service...');
-    return server.getPrimaryService(serviceUuid);
-  })
-  .then(service => {
+    const service = await server.getPrimaryService(buttonServiceUuid);
+
     log('Getting Characteristic...');
-    return service.getCharacteristics();
-  })
-  .then(characteristics => {
+    buttonStatusCharacteristic = await service.getCharacteristic(buttonStatusCharacteristicUuid);
+    await buttonStatusCharacteristic.startNotifications();
 
-    // save references to the characteristics we care about
-    characteristics.forEach(c => {
-
-      switch(c.uuid) {        
-        case buttonStatusCharacteristicUuid:
-          log('Button Status Characteristic');
-          buttonStatusCharacteristic = c;
-          buttonStatusCharacteristic.startNotifications().then(_ => {
-            log('Button Status Notifications started');
-            buttonStatusCharacteristic.addEventListener('characteristicvaluechanged', buttonStatusCharacteristicChanged);
-          });
-          break;
-        
-        default:
-          log('Skipping ' + c.uuid);
-      }
-    });
-  })
-  .catch(error => {
-    log('Argh! ' + error);
-  });
+    log('> Notifications started');
+    buttonStatusCharacteristic.addEventListener('characteristicvaluechanged', buttonStatusCharacteristicChanged);
+  } catch (error) {
+    log('Error: ' + error);
+  }
 }
 
 function buttonStatusCharacteristicChanged(event) {

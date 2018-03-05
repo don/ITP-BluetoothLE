@@ -12,6 +12,9 @@ noble.on('stateChange', function(state) {
 
 noble.on('discover', function(peripheral) {
     console.log(peripheral);
+
+    // if (!peripheral.advertisement.localName) { return; }
+
     var source = document.querySelector('#list-item-template').innerText;
     var template = Handlebars.compile(source);
     var listItem = template(peripheral);

@@ -8,61 +8,52 @@ document.querySelector('#startButton').addEventListener('click', function(event)
     }
 });
 
-var bluetoothDevice;
-var temperatureCharacteristic;
-var log = ChromeSamples.log;
+let bluetoothDevice;
+let temperatureCharacteristic;
+const log = ChromeSamples.log;
 
 document.querySelector('#controlsDiv').hidden = true;
 document.querySelector('#disconnectButton').addEventListener('click', disconnect);
 
-function onStartButtonClick() {
-  let serviceUuid = BluetoothUUID.getService(0xBBB0);
+async function onStartButtonClick() {
+  let thermometerServiceUuid = BluetoothUUID.getService(0xBBB0);
   let temperatureCharacteristicUuid = BluetoothUUID.getCharacteristic(0xBBB1);
+  let combinedUuid = BluetoothUUID.getService(0x721b);
 
-  log('Requesting Bluetooth Device...');
-  navigator.bluetooth.requestDevice(
-    {
-      filters: [{services: [serviceUuid]}]
-    }
-  ).then(device => {
-    bluetoothDevice = device; // save a copy
+  try {
+    log('Requesting Bluetooth Device...');
+    bluetoothDevice = await navigator.bluetooth.requestDevice({
+      filters: [
+        {services: [thermometerServiceUuid]},
+        {services: [combinedUuid]},
+      ],
+      optionalServices: [thermometerServiceUuid]
+    });
+
     document.querySelector('#startButton').hidden = true;
     document.querySelector('#controlsDiv').hidden = false;
+    
     log('Connecting to GATT Server...');
-    return device.gatt.connect();
-  })
-  .then(server => {
+    const server = await bluetoothDevice.gatt.connect();
+
     log('Getting Service...');
-    return server.getPrimaryService(serviceUuid);
-  })
-  .then(service => {
+    const service = await server.getPrimaryService(thermometerServiceUuid);
+
     log('Getting Characteristic...');
-    return service.getCharacteristics();
-  })
-  .then(characteristics => {
+    temperatureCharacteristic = await service.getCharacteristic(temperatureCharacteristicUuid);
+    await temperatureCharacteristic.startNotifications();
 
-    // save references to the characteristics we care about
-    characteristics.forEach(c => {
+    log('> Notifications started');
+    temperatureCharacteristic.addEventListener('characteristicvaluechanged', temperatureCharateristicChanged);
 
-      switch(c.uuid) {        
-        case temperatureCharacteristicUuid:
-          log('Temperature Status Characteristic');
-          temperatureCharacteristic = c;
-          temperatureCharacteristic.startNotifications().then(_ => {
-            log('Temperature Status Notifications started');
-            temperatureCharacteristic.addEventListener('characteristicvaluechanged', temperatureCharateristicChanged);
-          });
-          temperatureCharacteristic.readValue().then(updateTemperature);
-          break;
-        
-        default:
-          log('Skipping ' + c.uuid);
-      }
-    });
-  })
-  .catch(error => {
-    log('Argh! ' + error);
-  });
+    // temperatureCharacteristic.readValue().then(updateTemperature);
+    log('> Reading initial value');
+    const temperature = await temperatureCharacteristic.readValue();
+    updateTemperature(temperature);
+
+  } catch (error) {
+    log('Error: ' + error);
+  }
 }
 
 function updateTemperature(value) {

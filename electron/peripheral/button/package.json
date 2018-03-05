@@ -1,18 +1,18 @@
 {
-  "name"    : "your-app",
-  "private" : true,
-  "version" : "0.1.0",
-  "main"    : "main.js",
-   "scripts": {
+  "name": "electron-button-peripheral",
+  "private": true,
+  "version": "0.2.0",
+  "main": "main.js",
+  "scripts": {
     "start": "electron .",
     "electron-rebuild": "electron-rebuild"
   },
   "devDependencies": {
-    "electron": "^1.6.1",
-    "electron-rebuild": "^1.5.7"
+    "electron": "^1.8.2",
+    "electron-rebuild": "^1.7.3"
   },
   "dependencies": {
-    "bleno": "^0.4.1",
+    "bleno": "^0.5.0",
     "util": ""
   }
 }

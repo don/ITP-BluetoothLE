@@ -10,10 +10,10 @@
   "author": "Don Coleman",
   "license": "Apache-2.0",
   "devDependencies": {
-    "electron": "^1.6.1",
-    "electron-rebuild": "^1.5.7"
+    "electron": "",
+    "electron-rebuild": ""
   },
   "dependencies": {
-    "noble": "^1.8.0"
+    "noble": "^1.9.0"
   }
 }

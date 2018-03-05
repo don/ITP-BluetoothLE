@@ -1,9 +1,11 @@
 var noble = require('noble');
+var deviceName = 'microbit'; // TODO change to match your device name
 
 noble.on('stateChange', function(state) {
     if (state === 'poweredOn') {
         console.log('Scanning');
-        noble.startScanning(['ffe0', 'aa80']);
+        noble.startScanning(['ffe0', 'aa80', '721b']);
+        statusDiv.innerHTML += ' Scanning...';
     } else {
         noble.stopScanning();
         alert('Please enable Bluetooth');
@@ -12,9 +14,10 @@ noble.on('stateChange', function(state) {
 
 noble.on('discover', function(peripheral) {
     console.log('Discovered', peripheral.advertisement.localName);
-    // if (peripheral.advertisement.localName === 'Button') {
-    connectAndSetUp(peripheral);
-    noble.stopScanning();
+    if (peripheral.advertisement.localName === deviceName) {
+        noble.stopScanning();
+        connectAndSetUp(peripheral);
+    }
 });
 
 function connectAndSetUp(peripheral) {
@@ -22,6 +25,7 @@ function connectAndSetUp(peripheral) {
 
     peripheral.connect(function(error) {
         console.log('Connected to', peripheral.advertisement.localName);
+        statusDiv.innerHTML = `Connected to '${peripheral.advertisement.localName}'.<br/>Button state is unknown.`
 
         var serviceUUIDs = ['ffe0'];
         var characteristicUUIDs = ['ffe1']; // button
@@ -53,10 +57,10 @@ function onServicesAndCharacteristicsDiscovered(error, services, characteristics
 
     buttonCharacteristic.on('data', function(data, isNotification) {
         console.log(data);
-        if (data[0] === 1) {
-            statusDiv.innerHTML = 'Button is pressed';
+        if (data[0] === 0) {
+            statusDiv.innerText = 'Button is released';
         } else {
-            statusDiv.innerHTML = 'Button is released';
+            statusDiv.innerText = 'Button is pressed';
         }
     });
 

@@ -1,8 +1,9 @@
 var noble = require('noble');
+var deviceName = 'microbit';  // TODO change to match your device name
 
 noble.on('stateChange', function(state) {
     if (state === 'poweredOn') {
-        noble.startScanning(['bbb0']);
+        noble.startScanning(['bbb0', '721b']);
     } else {
         noble.stopScanning();
         alert('Please enable Bluetooth');
@@ -10,13 +11,18 @@ noble.on('stateChange', function(state) {
 });
 
 noble.on('discover', function(peripheral) {
-    console.log(peripheral);
-    connectAndSetUp(peripheral);
+    console.log('Discovered', peripheral.advertisement.localName);
+    if (peripheral.advertisement.localName === deviceName) {
+        console.log(peripheral);
+        connectAndSetUp(peripheral);
+    }
 });
 
 function connectAndSetUp(peripheral) {
+    console.log('Connecting to', peripheral.advertisement.localName);
 
     peripheral.connect(function(error) {
+        console.log('Connected to', peripheral.advertisement.localName);
 
         var serviceUUIDs = ['bbb0'];
         var characteristicUUIDs = ['bbb1']; // temperature

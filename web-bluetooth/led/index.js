@@ -42,12 +42,13 @@ function onPowerSwitchChange(event) {
 }
 
 function onStartButtonClick() {
-  let serviceUuid = BluetoothUUID.getCharacteristic(0xFF10);
+  let combinedUuid = BluetoothUUID.getCharacteristic(0x721b);
+  let ledServiceUuid = BluetoothUUID.getCharacteristic(0xFF10);
   let powerSwitchCharateristicUuid = BluetoothUUID.getCharacteristic(0xFF11);
   let brightnessCharacteristicUuid = BluetoothUUID.getCharacteristic(0xFF12);
   
   log('Requesting Bluetooth Device...');
-  navigator.bluetooth.requestDevice({filters: [{services: [serviceUuid]}]})
+  navigator.bluetooth.requestDevice({filters: [{services: [ledServiceUuid]}, {services: [combinedUuid]}]})
   .then(device => {
     bluetoothDevice = device; // save a copy
     document.querySelector('#startButton').hidden = true;
@@ -61,7 +62,7 @@ function onStartButtonClick() {
   })
   .then(server => {
     log('Getting Service...');
-    return server.getPrimaryService(serviceUuid);
+    return server.getPrimaryService(ledServiceUuid);
   })
   .then(service => {
     log('Getting Characteristic...');

@@ -1,8 +1,7 @@
 {
-  "name": "electron-ble-info",
-  "private": true,
+  "name": "electron-p5-song",
   "version": "1.0.0",
-  "description": "Discover BLE services and characteristics",
+  "description": "Merge P5 song example with Bluetooth button",
   "main": "main.js",
   "scripts": {
     "start": "electron main.js",
@@ -15,8 +14,6 @@
     "electron-rebuild": ""
   },
   "dependencies": {
-    "handlebars": "",
-    "mustache": "",
     "noble": ""
   }
 }

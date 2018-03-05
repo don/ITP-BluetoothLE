@@ -24,11 +24,9 @@ function onStartButtonClick() {
   log('Requesting Bluetooth Device...');
   navigator.bluetooth.requestDevice(
     {
-      filters: [
-        {services: [buttonServiceUuid]},
-        {services: [combinedUuid]},
-        {services: [sensorTagUuid]}
-      ]
+      filters: [{services: [sensorTagUuid]}],
+      filters: [{services: [combinedUuid]}],
+      optionalServices: [buttonServiceUuid]
     }
   ).then(device => {
     bluetoothDevice = device; // save a copy
@@ -66,7 +64,7 @@ function onStartButtonClick() {
     });
   })
   .catch(error => {
-    log('Error! ' + error);
+    log('Argh! ' + error);
   });
 }
 
@@ -76,9 +74,11 @@ function buttonStatusCharacteristicChanged(event) {
   let state = value.getUint8(0);
   console.log('Button Status Changed', state);
   if (state) {
-    statusDiv.innerText = 'Button is pressed.';            
+    bluetoothKey = state;
+    playNote(notes[bluetoothKey]);  
   } else {
-    statusDiv.innerText = 'Button is released.';
+    bluetoothKey = -1;
+    osc.fade(0,0.5);
   }
 
 }

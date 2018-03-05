@@ -16,17 +16,21 @@
     } 
     input {
       margin-top: 20px;
+      margin-bottom: 20px;
     }
     </style>
   </head>
   <body>
-    <div>
-      <button id="onButton" >On</button>
-      <button id="offButton">Off</button>
+    <div id="controlsDiv">
+      <div>
+        <button id="onButton">On</button>
+        <button id="offButton">Off</button>
+      </div>
+      <div>
+        <input type="range" min="0" max="255" value="255" id="brightness" />
+      </div>
     </div>
-    <div>
-      <input type="range" min="0" max="255" value="255" id="brightness" />
-    </div>
+    <div id="statusDiv">Not connected.</div>
     <script src="index.js"></script>
   </body>
 </html>
