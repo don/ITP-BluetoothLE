@@ -24,8 +24,8 @@ async function onStartButtonClick() {
     log('Requesting Bluetooth Device...');
     bluetoothDevice = await navigator.bluetooth.requestDevice({
       filters: [
-        {services: [thermometerServiceUuid]},
         {services: [combinedUuid]},
+        {services: [thermometerServiceUuid]}
       ],
       optionalServices: [thermometerServiceUuid]
     });
