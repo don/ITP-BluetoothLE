@@ -25,8 +25,10 @@ async function onStartButtonClick() {
     log('Requesting Bluetooth Device...');
     bluetoothDevice = await navigator.bluetooth.requestDevice(
       {
-        filters: [{services: [sensorTagUuid]}],
-        filters: [{services: [combinedUuid]}],
+        filters: [
+          {services: [combinedUuid]},
+          {services: [sensorTagUuid]}
+        ],
         optionalServices: [buttonServiceUuid]
       }
     );

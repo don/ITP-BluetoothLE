@@ -40,7 +40,7 @@ void setup() {
   pinMode(BUTTON2_PIN, INPUT);
  
   // set advertised name
-  char *name = "Combined";
+  char *name = "boston";
   blePeripheral.setLocalName(name);
   blePeripheral.setDeviceName(name);
 
